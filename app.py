@@ -8,6 +8,15 @@ if input_file is not None:
     st.write('File uploaded')
     df = pandas.read_csv(input_file, delimiter=',')    
 
+    owners = df['owner'].unique()
+    selected_owner = st.multiselect(
+        'Select owner',
+        owners,
+        default=list(owners),
+    )
+
+    df = df[df['owner'].isin(selected_owner)]
+
     st.dataframe(
     df,
     hide_index=True,
